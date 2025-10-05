@@ -1,0 +1,12 @@
+# Local Development Environment Variables
+# Copy this file to .env.local and fill in your values
+
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# n8n Webhook Configuration (Production)
+N8N_WEBHOOK_URL=https://n8n-elrsppnn.n8x.web.id/webhook/ccbda9d6-88aa-42fd-9de6-84710448761b
+
+# Optional: App URL for production
+NEXT_PUBLIC_APP_URL=http://localhost:3000

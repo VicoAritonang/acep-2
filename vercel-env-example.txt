@@ -1,0 +1,9 @@
+# Environment Variables for Vercel Deployment
+# Copy these to your Vercel project settings
+
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_APP_URL=https://your-app-name.vercel.app
+
+# n8n Webhook Configuration (Production)
+N8N_WEBHOOK_URL=https://n8n-elrsppnn.n8x.web.id/webhook/ccbda9d6-88aa-42fd-9de6-84710448761b
