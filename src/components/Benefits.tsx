@@ -1,4 +1,39 @@
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+
 export default function Benefits() {
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
+  const router = useRouter()
+
+  const handleDemoLogin = async () => {
+    setIsLoggingIn(true)
+    try {
+      const response = await fetch('/api/demo-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        // Save user info to localStorage
+        localStorage.setItem('acep-user', JSON.stringify(data.user))
+        // Redirect to dashboard
+        router.push('/dashboard')
+      } else {
+        alert('Failed to login. Please try again.')
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      alert('Failed to login. Please try again.')
+    } finally {
+      setIsLoggingIn(false)
+    }
+  }
+
   const benefits = [
     {
       title: "Reduce operational costs by up to 60%",
@@ -44,6 +79,25 @@ export default function Benefits() {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center mt-16">
+          <div className="bg-gray-900/50 border border-gray-800 rounded-2xl shadow-lg p-8 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Ready to Transform Your Energy Strategy?
+            </h3>
+            <p className="text-gray-400 mb-6">
+              Experience the power of intelligent energy planning with our demo dashboard
+            </p>
+            <button
+              onClick={handleDemoLogin}
+              disabled={isLoggingIn}
+              className="bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-black px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[0_0_20px_rgba(16,185,129,0.6)]"
+            >
+              {isLoggingIn ? 'Loading Demo...' : 'Start Demo Dashboard'}
+            </button>
+          </div>
         </div>
       </div>
     </section>

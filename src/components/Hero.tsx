@@ -1,6 +1,39 @@
-import Link from 'next/link'
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Hero() {
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
+  const router = useRouter()
+
+  const handleDemoLogin = async () => {
+    setIsLoggingIn(true)
+    try {
+      const response = await fetch('/api/demo-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        // Save user info to localStorage
+        localStorage.setItem('acep-user', JSON.stringify(data.user))
+        // Redirect to dashboard
+        router.push('/dashboard')
+      } else {
+        alert('Failed to login. Please try again.')
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      alert('Failed to login. Please try again.')
+    } finally {
+      setIsLoggingIn(false)
+    }
+  }
+
   return (
     <div className="gradient-futuristic min-h-screen flex items-center relative overflow-hidden">
       {/* Animated background elements */}
@@ -21,18 +54,20 @@ export default function Hero() {
             advanced clean energy planning solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link
-              href="/register"
-              className="bg-emerald-500 hover:bg-emerald-400 text-black px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[0_0_20px_rgba(16,185,129,0.6)]"
+            <button
+              onClick={handleDemoLogin}
+              disabled={isLoggingIn}
+              className="bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-black px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[0_0_20px_rgba(16,185,129,0.6)]"
             >
-              Get Started
-            </Link>
-            <Link
-              href="/login"
-              className="border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-black px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(16,185,129,0.4)]"
+              {isLoggingIn ? 'Loading Demo...' : 'Try Demo Dashboard'}
+            </button>
+            <button
+              onClick={handleDemoLogin}
+              disabled={isLoggingIn}
+              className="border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(16,185,129,0.4)]"
             >
-              Sign In
-            </Link>
+              {isLoggingIn ? 'Loading...' : 'Explore Features'}
+            </button>
           </div>
         </div>
       </div>
