@@ -167,7 +167,7 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
   return (
     <div className="fixed bottom-24 right-6 z-40 w-80 h-96 bg-white rounded-lg shadow-xl border border-gray-200 flex flex-col">
       {/* Header */}
-      <div className="bg-green-500 text-white p-4 rounded-t-lg flex items-center justify-between">
+      <div className="bg-green-500 text-black p-4 rounded-t-lg flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <div className="w-3 h-3 bg-green-300 rounded-full"></div>
           <span className="font-medium">ACEP AI Assistant</span>
@@ -194,14 +194,14 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
         ))}
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg rounded-bl-sm">
+            <div className="bg-gray-100 text-black px-4 py-2 rounded-lg rounded-bl-sm">
               <div className="flex items-center space-x-2">
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
-                <span className="text-sm">ACEP is thinking...</span>
+                <span className="text-sm text-black">ACEP is thinking...</span>
               </div>
             </div>
           </div>
@@ -218,7 +218,7 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Tulis pesan Anda..."
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm text-black placeholder:text-black/60"
             disabled={isLoading}
           />
           <button

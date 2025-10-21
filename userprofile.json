@@ -1,0 +1,163 @@
+{
+  "info": {
+    "name": "Sidating-App-BE",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Profile",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{url-sidating-app-be}}/profile/create",
+          "protocol": "",
+          "host": [
+            "{{url-sidating-app-be}}"
+          ],
+          "path": [
+            "profile",
+            "create"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Venedict\",\n  \"nickname\": \"vene\",\n  \"email\": \"dev1@email.com\",\n  \"phoneNumber\": \"08126534789\",\n  \"bio\": \"Semangat Apap!\",\n  \"birthdate\": \"2004-11-11\",\n  \"gender\": \"MALE\",\n  \"hobbies\": [\n    \"Ngoding\"\n  ],\n  \"interests\": [\n    \"Software Engineering\"\n  ],\n  \"location\": \"Depok, Jawa Barat, Indonesia\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Delete Profile",
+      "event": [],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{url-sidating-app-be}}/profile/delete/b9d6c363-55cb-4b37-971b-4079990c8ef6",
+          "protocol": "",
+          "host": [
+            "{{url-sidating-app-be}}"
+          ],
+          "path": [
+            "profile",
+            "delete",
+            "b9d6c363-55cb-4b37-971b-4079990c8ef6"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get All Profiles",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{url-sidating-app-be}}/profile",
+          "protocol": "",
+          "host": [
+            "{{url-sidating-app-be}}"
+          ],
+          "path": [
+            "profile"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get User Profile",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{url-sidating-app-be}}/profile/{{ganti_sesuai_id_user_yang_ada}}",
+          "protocol": "",
+          "host": [
+            "{{url-sidating-app-be}}"
+          ],
+          "path": [
+            "profile",
+            "{{ganti_sesuai_id_user_yang_ada}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Update Profile",
+      "event": [],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{url-sidating-app-be}}/profile/update",
+          "protocol": "",
+          "host": [
+            "{{url-sidating-app-be}}"
+          ],
+          "path": [
+            "profile",
+            "update"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"sesuaikan dengan id user yaa\",\n    \"name\": \"Venedict\",\n    \"nickname\": \"vene\",\n    \"birthdate\": \"2004-11-11\",\n    \"age\": 20,\n    \"ageGroup\": \"18-25\",\n    \"hobbies\": [\"Ngoding\"],\n    \"gender\": \"MALE\",\n    \"location\": \"Depok, Jawa Barat, Indonesia\",\n    \"bio\": \"Semangat Apap!\",\n    \"email\": \"dev1@email.com\",\n    \"phoneNumber\": \"08126534789\",\n    \"interests\": [\"Software Engineering\"],\n    \"createdAt\": \"2025-10-01T23:16:10.243458\",\n    \"updatedAt\": \"2025-10-01T23:16:10.243458\",\n    \"active\": false\n}\n\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url-sidating-app-be",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "ganti_sesuai_id_user_yang_ada",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

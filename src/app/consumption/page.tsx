@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import ToolCard from '@/components/ToolCard'
-import ModalForm from '@/components/ModalForm'
 import { useUser } from '@/contexts/UserContext'
 import { 
   db,
@@ -193,12 +191,36 @@ export default function ConsumptionPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {consumptionTools.map((tool) => (
-              <ToolCard
-                key={tool.id}
-                tool={tool}
-                onEdit={handleEditTool}
-                onDelete={handleDeleteTool}
-              />
+              <div key={tool.id} className="bg-gray-900/50 border border-gray-800 rounded-2xl shadow-lg p-6 hover:border-emerald-500/30 transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                  </div>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleEditTool(tool)}
+                      className="p-2 text-gray-400 hover:text-blue-400 hover:bg-gray-800/50 rounded-lg transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => handleDeleteTool(tool.id)}
+                      className="p-2 text-gray-400 hover:text-red-400 hover:bg-gray-800/50 rounded-lg transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">{tool.name}</h3>
+                <div className="text-2xl font-bold text-blue-400 mb-1">{tool.kw_per_hour} kW</div>
+                <p className="text-sm text-gray-400">Energy consumption per hour</p>
+              </div>
             ))}
           </div>
         )}
@@ -234,14 +256,79 @@ export default function ConsumptionPage() {
         )}
       </div>
 
-      {/* Modal */}
-      <ModalForm
-        isOpen={showModal}
-        onClose={closeModal}
-        onSubmit={handleSubmitTool}
-        type="tool"
-        editData={editingTool}
-      />
+      {/* Simple Form Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-xl max-w-md w-full">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {editingTool ? 'Edit Tool' : 'Add New Tool'}
+                </h3>
+                <button
+                  onClick={closeModal}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              <form onSubmit={(e) => {
+                e.preventDefault()
+                const formData = new FormData(e.currentTarget)
+                const data = {
+                  name: formData.get('name') as string,
+                  kw_per_hour: parseFloat(formData.get('kw_per_hour') as string)
+                }
+                handleSubmitTool(data)
+              }}>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Tool Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      defaultValue={editingTool?.name || ''}
+                      className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Power (kW/h)</label>
+                    <input
+                      type="number"
+                      name="kw_per_hour"
+                      step="0.1"
+                      min="0"
+                      defaultValue={editingTool?.kw_per_hour || ''}
+                      className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <div className="flex justify-end space-x-3 mt-6">
+                  <button
+                    type="button"
+                    onClick={closeModal}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                  >
+                    {editingTool ? 'Update' : 'Add'} Tool
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

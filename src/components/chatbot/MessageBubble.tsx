@@ -11,14 +11,12 @@ export default function MessageBubble({ message, isUser, timestamp }: MessageBub
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
       <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
         isUser 
-          ? 'bg-green-500 text-white rounded-br-sm' 
-          : 'bg-gray-100 text-gray-800 rounded-bl-sm'
+          ? 'bg-green-500 text-black rounded-br-sm' 
+          : 'bg-gray-100 text-black rounded-bl-sm'
       }`}>
-        <p className="text-sm">{message}</p>
+        <p className="text-sm text-black">{message}</p>
         {timestamp && (
-          <p className={`text-xs mt-1 ${
-            isUser ? 'text-green-100' : 'text-gray-500'
-          }`}>
+          <p className="text-xs mt-1 text-black">
             {timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </p>
         )}
